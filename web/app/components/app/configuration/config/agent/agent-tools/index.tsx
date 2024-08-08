@@ -7,13 +7,11 @@ import produce from 'immer'
 import {
   RiDeleteBinLine,
   RiHammerFill,
-  RiQuestionLine,
 } from '@remixicon/react'
 import { useFormattingChangedDispatcher } from '../../../debug/hooks'
 import SettingBuiltInTool from './setting-built-in-tool'
 import cn from '@/utils/classnames'
 import Panel from '@/app/components/app/configuration/base/feature-panel'
-import Tooltip from '@/app/components/base/tooltip'
 import { InfoCircle } from '@/app/components/base/icons/src/vender/line/general'
 import OperationBtn from '@/app/components/app/configuration/base/operation-btn'
 import AppIcon from '@/app/components/base/app-icon'
@@ -68,11 +66,14 @@ const AgentTools: FC = () => {
         title={
           <div className='flex items-center'>
             <div className='mr-1'>{t('appDebug.agent.tools.name')}</div>
-            <Tooltip htmlContent={<div className='w-[180px]'>
-              {t('appDebug.agent.tools.description')}
-            </div>} selector='config-tools-tooltip'>
-              <RiQuestionLine className='w-[14px] h-[14px] text-gray-400' />
-            </Tooltip>
+            <TooltipPlus
+              popupContent={
+                <div className='w-[180px]'>
+                  {t('appDebug.agent.tools.description')}
+                </div>
+              }
+              needsDelay={false}
+            />
           </div>
         }
         headerRight={
@@ -121,6 +122,7 @@ const AgentTools: FC = () => {
                   <span className='text-gray-800 pr-2'>{item.provider_type === CollectionType.builtIn ? item.provider_name : item.tool_label}</span>
                   <TooltipPlus
                     popupContent={t('tools.toolNameUsageTip')}
+                    needsDelay={false}
                   >
                     <span className='text-gray-500'>{item.tool_name}</span>
                   </TooltipPlus>
@@ -158,7 +160,7 @@ const AgentTools: FC = () => {
                       <TooltipPlus
                         popupContent={t('tools.setBuiltInTools.infoAndSetting')}
                       >
-                        <div className='mr-1 p-1 rounded-md hover:bg-black/5  cursor-pointer' onClick={() => {
+                        <div className='p-1 rounded-md hover:bg-black/5  cursor-pointer' onClick={() => {
                           setCurrentTool(item)
                           setIsShowSettingTool(true)
                         }}>
